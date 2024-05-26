@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Delete Book</h1>
+<form method="post">
+    <div class="form-group">
+        <label for="book_id">Book ID</label>
+        <input type="text" class="form-control" id="book_id" name="book_id" required>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete Book</button>
+</form>
+{% endblock %}

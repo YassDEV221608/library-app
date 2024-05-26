@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>View Books</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Copies</th>
+            <th>PDF Available</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+        <tr>
+            <td>{{ book._id }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.copies }}</td>
+            <td>{{ 'Yes' if book.pdf_file_id else 'No' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Library System</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('add_book') }}">Add Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('delete_book') }}">Delete Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('view_books') }}">View Books</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('issue_book') }}">Issue Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('return_book') }}">Return Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('defaulters') }}">Defaulters</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

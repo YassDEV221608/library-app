@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Defaulters</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>User ID</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for defaulter in defaulters %}
+        <tr>
+            <td>{{ defaulter.book_id }}</td>
+            <td>{{ defaulter.user_id }}</td>
+            <td>{{ defaulter.issue_date }}</td>
+            <td>{{ defaulter.due_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
