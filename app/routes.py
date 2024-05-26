@@ -15,23 +15,22 @@ fs = gridfs.GridFS(db)
 def index():
     return render_template('index.html')
 
+
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':
-        book_id = int(request.form['book_id'])
         title = request.form['title']
         author = request.form['author']
         copies = int(request.form['copies'])
         pdf_file = request.files.get('pdf_file')
-        
+
         book = {
-            "_id": book_id,
             "title": title,
             "author": author,
             "copies": copies,
             "pdf_file_id": None
         }
-        
+
         if pdf_file:
             pdf_file_id = fs.put(pdf_file, filename=f"{title}.pdf")
             book["pdf_file_id"] = pdf_file_id
@@ -39,9 +38,8 @@ def add_book():
         books_collection.insert_one(book)
         flash(f"Book '{title}' added successfully.")
         return redirect(url_for('index'))
-    
-    return render_template('add_book.html')
 
+    return render_template('add_book.html')
 @app.route('/delete_book', methods=['GET', 'POST'])
 def delete_book():
     if request.method == 'POST':
