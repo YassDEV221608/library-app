@@ -1,0 +1,24 @@
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node specific
+node_modules/
+npm-debug.log
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# Environment variables
+.env
