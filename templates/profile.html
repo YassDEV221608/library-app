@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        {{ data.data }}
+
+        <hr>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {% for val in data.data %}
+        
+            {{ val.Name  }} - 
+            Phone:  {{ val.phone }}
+            <br>
+            {% for phone in val.phone %}
+                Phone :  {{ phone }}
+            {% endfor %}
+            <hr><br>
+            <br>
+            
+        {% endfor %}
+    </body>
+</html>

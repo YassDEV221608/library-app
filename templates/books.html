@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    
+<head> <title></title>
+</head>
+<body>
+    <h1 id="header" style="color:blue",align:"center">My Books</h1>
+    <hr>
+    <br>
+    <br>
+    {% for val in book.books %}
+     <h2>{{ val.Title  }} - </h2>
+            <img src="/static/image/{{ val.Title }}.jpg" width="200px" height="300px"></img>
+              Author:  {{ val.Author }}
+                <hr><br>
+              Price: {{val.Price}}
+                <hr><br>
+              ISBN: {{val.ISBN}}
+                <hr><br>
+              Publisher: {{val.Publisher}}
+            <hr><br>
+            <br>
+    {% endfor %}
+    
+    
+</body>
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</html>

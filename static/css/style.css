@@ -1,0 +1,24 @@
+h1  {
+    color: green;
+    /*background-color: green;*/
+    font-family:courier;
+    font-size:180%;	
+}
+
+body {
+	width: 90%;
+	border: 2px blue solid;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.link {
+	font-size: 20px;
+	font-style: serif;
+	font-weight: 100px;
+	color: yellow;
+}
+
+#header {
+	color: red;
+}

@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <title>Log In HERE!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+  <div class="container">
+    <div class="TEdit" id="Edit1" style="position: absolute; left: 500px; below:  
+  100px;">
+      <h1>Please login</h1>
+      <br>
+      <form action="" method="">
+
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+        <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+
+        <p>Haven't registered? Click the link below to sign up now.</p>
+        <a href="/form" class="link">Signup</a></div>
+    </form>
+  </div>
+  {% if error %}
+  <p class="error"><strong>Error:</strong> {{ error }} {% endif %}
+    </div>
+</body>
+
+</html>
