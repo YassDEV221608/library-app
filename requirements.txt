@@ -1,5 +1,0 @@
-Flask
-Flask-Mail
-Flask-Login
-pymongo
-Werkzeug
