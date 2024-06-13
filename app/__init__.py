@@ -1,15 +1,20 @@
 from flask import Flask
-import pymongo
-import gridfs
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from app.extensions import initialize_extensions
+from config import Config
+from .models import db
+from .create_admin import create_admin
+from .extensions import neo4j_conn
 
 app = Flask(__name__)
-app.secret_key = '545a601fef35e5203a13fbf68599c646'  # Replace with a strong secret key
-
-# MongoDB setup
-client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client["library"]
-books_collection = db["books"]
-issued_books_collection = db["issued_books"]
-fs = gridfs.GridFS(db)
+app.secret_key = "5396990d5983c31e12904736905fdfe4"
+app.config.from_object(Config)
+initialize_extensions(app)
+#create_admin(app)
+db.init_app(app)
+bcrypt = Bcrypt(app)
+login = LoginManager(app)
+login.login_view = 'login'
 
 from app import routes

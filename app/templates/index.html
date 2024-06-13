@@ -1,5 +1,29 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Welcome to the Library System</h1>
-<p>Use the navigation bar to manage the library.</p>
+<div class="container mt-5">
+    <div class="jumbotron text-center bg-primary text-white">
+        <h1 class="display-4">Welcome to the Library Management System</h1>
+        <p class="lead">Manage your library with ease.</p>
+    </div>
+    <div class="text-center mb-4">
+        <h2>Welcome, {{ session.username }}!</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">Options</div>
+                <ul class="list-group list-group-flush">
+                    {% if session.is_admin %}
+                        <li class="list-group-item"><a href="{{ url_for('add_book') }}" class="btn btn-outline-secondary btn-block">Add Book</a></li>
+                        <li class="list-group-item"><a href="{{ url_for('admin_search_loaners') }}" class="btn btn-outline-secondary btn-block">Search Loaners</a></li>
+                        <li class="list-group-item"><a href="{{ url_for('search_users') }}" class="btn btn-outline-secondary btn-block">Search Users</a></li>
+                    {% endif %}
+                    <li class="list-group-item"><a href="{{ url_for('search_books') }}" class="btn btn-outline-secondary btn-block">Search Books</a></li>
+                    <li class="list-group-item"><a href="{{ url_for('view_books') }}" class="btn btn-outline-secondary btn-block">View All Books</a></li>
+                    <li class="list-group-item"><a href="{{ url_for('view_loaned_books') }}" class="btn btn-outline-secondary btn-block">View Loaned Books</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

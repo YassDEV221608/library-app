@@ -1,34 +1,61 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Library System</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Library App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+        <i class="fas fa-book"></i> Bibliotheca
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
     <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Library System</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('add_book') }}">Add Book</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('delete_book') }}">Delete Book</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('view_books') }}">View Books</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('issue_book') }}">Issue Book</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('return_book') }}">Return Book</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url_for('defaulters') }}">Defaulters</a></li>
-                </ul>
-            </div>
-        </nav>
-        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% with messages = get_flashed_messages() %}
           {% if messages %}
-            <div class="alert alert-dismissible fade show" role="alert">
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-              {% endfor %}
+            <div class="alert alert-info" role="alert">
+              {{ messages[0] }}
             </div>
           {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+              {% if current_user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('logout') }}">
+                          <i class="fas fa-sign-out-alt"></i> Logout
+                      </a>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('login') }}">
+                          <i class="fas fa-sign-in-alt"></i> Login
+                      </a>
+                  </li>
+              {% endif %}
+          </ul>
+      </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </body>
 </html>

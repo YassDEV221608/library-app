@@ -1,6 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>All Books</h1>
+<h1>Search Results</h1>
+<form method="post" id="searchForm" action="{{ url_for('search_books') }}">
+    <div class="form-group">
+        <label for="search_query">Search by Title</label>
+        <input type="text" class="form-control" id="search_query" name="search_query" value="{{ search_query }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<script>
+    document.getElementById('search_query').addEventListener('submit', function() {
+        var searchQuery = this.value;
+        document.getElementById('searchForm').submit();
+    });
+</script>
+
+<p>Results for "{{ search_query }}":</p>
 <table class="table">
     <thead>
         <tr>
@@ -10,7 +26,6 @@
             <th>Copies</th>
             <th>PDF Available</th>
             <th>Actions</th>
-            <th>Recommendations</th> <!-- New column for recommendations -->
         </tr>
     </thead>
     <tbody>
@@ -70,19 +85,19 @@
     <ul class="pagination">
         {% if page > 1 %}
         <li class="page-item">
-            <a class="page-link" href="{{ url_for('view_books', page=page-1) }}" aria-label="Previous">
+            <a class="page-link" href="{{ url_for('search_books', page=page-1, search_query=search_query) }}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         {% endif %}
         {% for p in range(1, total_pages + 1) %}
         <li class="page-item {% if p == page %}active{% endif %}">
-            <a class="page-link" href="{{ url_for('view_books', page=p) }}">{{ p }}</a>
+            <a class="page-link" href="{{ url_for('search_books', page=p, search_query=search_query) }}">{{ p }}</a>
         </li>
         {% endfor %}
         {% if page < total_pages %}
         <li class="page-item">
-            <a class="page-link" href="{{ url_for('view_books', page=page+1) }}" aria-label="Next">
+            <a class="page-link" href="{{ url_for('search_books', page=page+1, search_query=search_query) }}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

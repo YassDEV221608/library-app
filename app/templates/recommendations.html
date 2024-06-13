@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <h1>Recommendations for "{{ book_title }}"</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Copies</th>
+                <th>PDF Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in recommended_books %}
+            <tr>
+                <td>
+                    {% if book.cover_image %}
+                    <img src="{{ book.cover_image}}" alt="{{ book.title }} cover" style="max-width: 100px;">
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.copies }}</td>
+                <td>{{ 'Yes' if book.pdf_file_id else 'No' }}</td>
+                <td>
+                    {% if book.pdf_file_id %}
+                    <a href="{{ url_for('download', book_id=book._id) }}" target="_blank" class="btn btn-primary btn-sm">
+                        View
+                    </a>
+                    {% endif %}
+                    {% if not session.is_admin %}
+                    <form method="post" action="{{ url_for('loan_book', book_id=book._id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Loan
+                        </button>
+                    </form>
+                    {% endif %}
+                    {% if session.is_admin %}
+                    <!-- Update Copies Form -->
+                    <form method="post" action="{{ url_for('update_book_copies', book_id=book._id) }}" style="display:inline;">
+                        <input type="number" name="copies" min="0" value="{{ book.copies }}" class="form-control-sm" style="width: 60px; display:inline;">
+                        <button type="submit" class="btn btn-warning btn-sm">
+                            Update
+                        </button>
+                    </form>
+                    <form method="post" action="{{ url_for('delete_book', book_id=book._id) }}" onsubmit="return confirm('Are you sure you want to delete this book?');" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('recommendations', book_title=book_title, page=page-1) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('recommendations', book_title=book_title, page=p) }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('recommendations', book_title=book_title, page=page+1) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    
+    <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+{% endblock %}
