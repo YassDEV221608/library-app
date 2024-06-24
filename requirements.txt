@@ -1,1 +1,12 @@
+Flask
+Flask-Login
+Flask-Bcrypt
+Flask-WTF
+WTForms
+Werkzeug
 pymongo
+dnspython
+neo4j
+python-dotenv
+git+https://github.com/idoshr/flask-mongoengine.git@1.0.1
+gridfs
